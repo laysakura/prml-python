@@ -12,6 +12,8 @@ setup(
     author           = 'Sho Nakatani',
     author_email     = 'lay.sakura@gmail.com',
     install_requires = [
+        'numpy',
+        'matplotlib',
     ],
     tests_require    = [
         'nose',
