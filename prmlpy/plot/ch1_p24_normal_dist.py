@@ -54,16 +54,24 @@ def main():
         :return: None
         """
         mu = slider_mu.get_widget().val
-        x_list = np.arange(0.0, 1.0, 0.001)
-        y_list = normal_dist(x_list, mu, 0.2)
+        sigma = slider_sigma.get_widget().val
+
+        y_list = normal_dist(x_list, mu, sigma)
         line2d.set_ydata(y_list)
 
-    slider_mu = SliderWrapper(label='mu', min_val=0.0, max_val=1.0, init_val=0.5)
-    ax_graph, (ax_slider_mu,) = init_figure([slider_mu])
+    INIT_MU = 0.5
+    INIT_SIGMA = 0.01
+
+    slider_mu = SliderWrapper(label='mu', min_val=0.0, max_val=1.0, init_val=INIT_MU)
+    slider_sigma = SliderWrapper(label='sigma', min_val=0.01, max_val=0.10, init_val=INIT_SIGMA)
+
+    ax_graph, (ax_slider_mu, ax_slider_sigma) = init_figure([slider_mu, slider_sigma])
+
     slider_mu.instantiate(axis=ax_slider_mu, on_changed=update_plot)
+    slider_sigma.instantiate(axis=ax_slider_sigma, on_changed=update_plot)
 
     x_list = np.arange(0.0, 1.0, 0.001)
-    y_list = normal_dist(x_list, 0.5, 0.2)
+    y_list = normal_dist(x_list, INIT_MU, INIT_SIGMA)
 
     line2d, = ax_graph.plot(x_list, y_list)
 
