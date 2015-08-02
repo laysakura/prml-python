@@ -14,12 +14,14 @@ setup(
     install_requires = [
         'numpy',
         'matplotlib',
+        #'scipy',  # `./setup.py install` で失敗するため、 `pip install scipy` をする。
     ],
     tests_require    = [
         'nose',
     ],
     packages         = [
         'prmlpy',
+        'prmlpy.distribution',
     ],
     scripts          = [
     ],

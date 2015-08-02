@@ -1,6 +1,6 @@
 """
-    prmlpy.plot.ch1_p24_normal_dist.py
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    prmlpy.plot.ch1_p24_normal_dist
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     :synopsis: 正規分布の可視化。
 

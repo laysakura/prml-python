@@ -15,7 +15,7 @@
 [pyenvを使ってMacにPythonの環境を構築する](http://qiita.com/1000ch/items/93841f76ea52551b6a97) などを見てインストール。
 
 ```bash
-python --version
+$ python --version
 ```
 
 で所望のバージョンがインストールされていることの確認。
@@ -23,6 +23,7 @@ python --version
 ### 依存パッケージのインストール
 
 ```bash
+$ pip install scipy  # scipyは、setup.py に書くだけじゃうまくインストールできない。。
 $ ./setup.py install
 ```
 
