@@ -1,7 +1,6 @@
 # 動作検証用に http://aidiary.hatenablog.com/entry/20100327/1269657354 から拝借
 
 
-#coding:utf-8
 import numpy as np
 import sys
 from pylab import *
@@ -33,6 +32,7 @@ def estimate(xlist, tlist):
     wlist = np.linalg.solve(A, T)
     
     return wlist
+
 
 def example1():
     # 訓練データ
