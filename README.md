@@ -34,7 +34,7 @@ $ ./setup.py install
 ### 動作検証
 
 ```bash
-$ python prmlpy/plot/ch1_p24_normal_dist.py
+$ PYTHONPATH=. python prmlpy/plot/ch1_p24_normal_dist.py
 ```
 
 グラフが表示されればOK。
@@ -43,7 +43,13 @@ $ python prmlpy/plot/ch1_p24_normal_dist.py
 ## 可視化サンプルの動かし方
 
 ```bash
-$ python prmlpy/plot/foobar.py
+$ PYTHONPATH=. python prmlpy/plot/foobar.py
+```
+
+または
+
+```bash
+$ python -m prmlpy.plot.foobar
 ```
 
 立ち上がった画面でスライダーバーとか動かして遊ぶ。
