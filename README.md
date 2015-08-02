@@ -34,10 +34,19 @@ $ ./setup.py install
 ### 動作検証
 
 ```bash
-$ python example.py
+$ python prmlpy/plot/ch1_p24_normal_dist.py
 ```
 
 グラフが表示されればOK。
+
+
+## 可視化サンプルの動かし方
+
+```bash
+$ python prmlpy/plot/foobar.py
+```
+
+立ち上がった画面でスライダーバーとか動かして遊ぶ。
 
 
 ## 単体テスト実行
