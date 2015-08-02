@@ -29,7 +29,7 @@ def init_figure(slider_list=[]):
 
     # グラフ領域
     gs_graph = gridspec.GridSpec(1, 1)
-    gs_graph.update(left=0.00, right=0.80, wspace=0.05)
+    gs_graph.update(left=0.05, right=0.80, wspace=0.05)
     ax_graph = plt.subplot(gs_graph[:, :])
 
     # スライダーバー領域 (スライダーバーは最大10本まで入る)

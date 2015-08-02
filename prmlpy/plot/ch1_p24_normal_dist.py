@@ -11,10 +11,10 @@
 # standard modules
 
 # 3rd party modules
+from matplotlib import pyplot as plt
 import numpy as np
 
 # original modules
-from matplotlib import pyplot as plt
 from prmlpy.distribution.normal import normal_dist
 from prmlpy.widgetwrapper.slider import SliderWrapper
 import prmlpy.plot

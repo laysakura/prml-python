@@ -43,7 +43,7 @@ def main():
     slider_a.instantiate(axis=ax_slider_a, on_changed=update_plot)
     slider_b.instantiate(axis=ax_slider_b, on_changed=update_plot)
 
-    mu_list = np.arange(0.0, 1.0, 0.001)
+    mu_list = np.arange(0.0 + 0.001, 1.0 - 0.001, 0.001)
     y_list = beta_dist(mu_list, INIT_A, INIT_B)
 
     line2d, = ax_graph.plot(mu_list, y_list)
