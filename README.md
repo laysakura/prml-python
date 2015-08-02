@@ -1,5 +1,7 @@
 # prml-python
 
+![動作サンプル](/doc/screenshot/prmlpy.gif?raw=true)
+
 ## 使い方
 
 ### 動作検証環境
