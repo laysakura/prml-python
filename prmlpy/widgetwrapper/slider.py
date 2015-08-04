@@ -14,31 +14,27 @@
 from matplotlib import widgets as widgets
 
 # original modules
+from widgetwrapper import ParamWidgetWrapper
 
 
-class SliderWrapper:
+class SliderWrapper(ParamWidgetWrapper):
     """matplotlib.widgets.Slider のラッパー。
     """
 
-    def __init__(self, axis, label, min_val, max_val, init_val):
+    def __init__(self, param_name, axis, label, min_val, max_val, init_val):
         """
 
+        :param param_name: 分布関数中のパラメータ名。
         :param axis: スライダーバーを配置するaxis。
         :param label:
         :param min_val:
         :param max_val:
         :param init_val: スライダーバーの初期値。
         """
-        self._label = label
         self._min_val = min_val
         self._max_val = max_val
         self._init_val = init_val
         # スライダーバーのウィジェットを作成
-        self._widget = widgets.Slider(axis, self._label, self._min_val, self._max_val, valinit=self._init_val)
-
-    def get_widget(self):
-        """instantiate() されたウィジェットを返却。
-
-        :return:
-        """
-        return self._widget
+        super(SliderWrapper, self).__init__(
+            param_name,
+            widgets.Slider(axis, label, self._min_val, self._max_val, valinit=self._init_val))

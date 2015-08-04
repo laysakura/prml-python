@@ -15,37 +15,46 @@ from matplotlib import pyplot as plt
 import numpy as np
 
 # original modules
-import sys
-print(sys.path)
-
 from widgetwrapper.slider import SliderWrapper
-from distribution.normal import normal_dist, normal_dist2
+from distribution.normal import normal_dist
 import plot
 
 
 class Plotter:
-    _f = None
-    _parameters = None
+    """グラフを描画するための情報を登録するクラス。
+    """
+    _dist_f = None
+    _param_widget_wrappers = None
+    _x_list = None
+    _line2d = None
 
-    x_list = np.arange(0.0, 1.0, 0.001)
-    y_list = normal_dist(x_list, 0.5, 0.01)
+    @classmethod
+    def register(cls, ax_graph, dist_f, param_widget_wrappers, x_list):
+        """グラフを描画するための情報を登録。
 
-    line2d = None
+        :param ax_graph: グラフのaxis。
+        :param dist_f: 分布関数。
+        :param param_widget_wrappers: 分布関数に渡すパラメータに紐付いた、 ParamWidgetWrapper の子クラスのインスタンス。
+        :param x_list: 分布の横軸。
+        """
+        cls._dist_f = dist_f
+        cls._param_widget_wrappers = param_widget_wrappers
+        cls._x_list = x_list
 
-    def __init__(self, ax_graph, f, parameters):
-        Plotter._f = f
-        Plotter._parameters = parameters
+        y_list = cls._get_y_list_from_current_param_widgets()  # 初期分布
+        cls._line2d, = ax_graph.plot(cls._x_list, y_list)
 
-        Plotter.line2d, = ax_graph.plot(Plotter.x_list, Plotter.y_list)
-        for param in Plotter._parameters:
-            param['val_from'].get_widget().on_changed(Plotter.update)
+        for w in param_widget_wrappers:
+            w.get_widget().on_changed(cls._update_graph)
 
-    def update(_):
-        f_params = {}
-        for param in Plotter._parameters:
-            f_params[param['name']] = param['val_from'].get_widget().val
-        Plotter.y_list = Plotter._f(Plotter.x_list, f_params)
-        Plotter.line2d.set_ydata(Plotter.y_list)
+    @classmethod
+    def _get_y_list_from_current_param_widgets(cls):
+        dist_f_params = {w.get_param_name(): w.get_widget().val for w in cls._param_widget_wrappers}
+        return Plotter._dist_f(Plotter._x_list, dist_f_params)
+
+    @staticmethod
+    def _update_graph(_):
+        Plotter._line2d.set_ydata(Plotter._get_y_list_from_current_param_widgets())
 
 
 INIT_MU = 0.5
@@ -54,10 +63,13 @@ INIT_SIGMA = 0.01
 
 def main():
     ax_graph, ax_slider_list = plot.init_figure(n_sliders=2)
-    slider_mu = SliderWrapper(axis=ax_slider_list[0], label='mu', min_val=0.0, max_val=1.0, init_val=INIT_MU)
-    slider_sigma = SliderWrapper(axis=ax_slider_list[1], label='sigma', min_val=0.01, max_val=0.10, init_val=INIT_SIGMA)
+    slider_mu = SliderWrapper(
+        param_name='mu', axis=ax_slider_list[0], label='mu', min_val=0.0, max_val=1.0, init_val=INIT_MU)
+    slider_sigma = SliderWrapper(
+        param_name='sigma', axis=ax_slider_list[1], label='sigma', min_val=0.01, max_val=0.10, init_val=INIT_SIGMA)
 
-    Plotter(ax_graph, f=normal_dist2, parameters=[{ 'name': 'mu', 'val_from': slider_mu }, {'name': 'sigma', 'val_from': slider_sigma} ])
+    x_list = np.arange(0.0, 1.0, 0.001)
+    Plotter.register(ax_graph, dist_f=normal_dist, param_widget_wrappers=[slider_mu, slider_sigma], x_list=x_list)
 
     plt.show()
 
