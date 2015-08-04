@@ -33,14 +33,13 @@ class SliderWrapper:
         self._max_val = max_val
         self._init_val = init_val
 
-    def instantiate(self, axis, on_changed):
+    def instantiate(self, axis):
         """スライダーバーのウィジェットを実際に作り、 on_changed コールバックをセットする。
 
         :param axis:
         :param on_changed:
         """
         self._widget = widgets.Slider(axis, self._label, self._min_val, self._max_val, valinit=self._init_val)
-        self._widget.on_changed(on_changed)
 
     def get_widget(self):
         """instantiate() されたウィジェットを返却。
