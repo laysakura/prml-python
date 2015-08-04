@@ -54,12 +54,8 @@ INIT_SIGMA = 0.01
 
 def main():
     ax_graph, ax_slider_list = plot.init_figure(n_sliders=2)
-
-    slider_mu = SliderWrapper(label='mu', min_val=0.0, max_val=1.0, init_val=INIT_MU)
-    slider_sigma = SliderWrapper(label='sigma', min_val=0.01, max_val=0.10, init_val=INIT_SIGMA)
-
-    slider_mu.instantiate(axis=ax_slider_list[0])
-    slider_sigma.instantiate(axis=ax_slider_list[1])
+    slider_mu = SliderWrapper(axis=ax_slider_list[0], label='mu', min_val=0.0, max_val=1.0, init_val=INIT_MU)
+    slider_sigma = SliderWrapper(axis=ax_slider_list[1], label='sigma', min_val=0.01, max_val=0.10, init_val=INIT_SIGMA)
 
     Plotter(ax_graph, f=normal_dist2, parameters=[{ 'name': 'mu', 'val_from': slider_mu }, {'name': 'sigma', 'val_from': slider_sigma} ])
 

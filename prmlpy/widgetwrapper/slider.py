@@ -20,9 +20,10 @@ class SliderWrapper:
     """matplotlib.widgets.Slider のラッパー。
     """
 
-    def __init__(self, label, min_val, max_val, init_val):
+    def __init__(self, axis, label, min_val, max_val, init_val):
         """
 
+        :param axis: スライダーバーを配置するaxis。
         :param label:
         :param min_val:
         :param max_val:
@@ -32,13 +33,7 @@ class SliderWrapper:
         self._min_val = min_val
         self._max_val = max_val
         self._init_val = init_val
-
-    def instantiate(self, axis):
-        """スライダーバーのウィジェットを実際に作り、 on_changed コールバックをセットする。
-
-        :param axis:
-        :param on_changed:
-        """
+        # スライダーバーのウィジェットを作成
         self._widget = widgets.Slider(axis, self._label, self._min_val, self._max_val, valinit=self._init_val)
 
     def get_widget(self):
