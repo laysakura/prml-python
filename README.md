@@ -1,6 +1,11 @@
 # prml-python
 
-![動作サンプル](/doc/screenshot/prmlpy.gif?raw=true)
+![ガンマ分布のパラメータをリアルタイムで変更](/doc/screenshot/ch1_p24_normal_dist.gif?raw=true)
+_ガンマ分布のパラメータをリアルタイムで変更_
+
+![二項分布の逐次学習](/doc/screenshot/ch2_p70_sequential_learning.gif?raw=true)
+_二項分布の逐次学習_
+
 
 ## 使い方
 
@@ -37,7 +42,7 @@ $ ./setup.py install
 ### 動作検証
 
 ```bash
-$ PYTHONPATH=. python prmlpy/plot/ch1_p24_normal_dist.py
+$ PYTHONPATH=prmlpy python prmlpy/plot/ch1_p24_normal_dist.py
 ```
 
 グラフが表示されればOK。
@@ -46,7 +51,7 @@ $ PYTHONPATH=. python prmlpy/plot/ch1_p24_normal_dist.py
 ## 可視化サンプルの動かし方
 
 ```bash
-$ PYTHONPATH=. python prmlpy/plot/foobar.py
+$ PYTHONPATH=prmlpy python prmlpy/plot/foobar.py
 ```
 
 または
@@ -56,19 +61,3 @@ $ python -m prmlpy.plot.foobar
 ```
 
 立ち上がった画面でスライダーバーとか動かして遊ぶ。
-
-
-## 単体テスト実行
-
-### テストに必要なパッケージのインストール
-
-```bash
-$ ./setup.py test
-$ pip install nose  # nosetests コマンドがこうしなきゃ入らない...なぜ...
-```
-
-### 実行
-
-```bash
-$ nosetests
-```
