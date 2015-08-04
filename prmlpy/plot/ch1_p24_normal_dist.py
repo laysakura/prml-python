@@ -15,39 +15,24 @@ from matplotlib import pyplot as plt
 import numpy as np
 
 # original modules
-from prmlpy.distribution.normal import normal_dist
-from prmlpy.widgetwrapper.slider import SliderWrapper
-import prmlpy.plot
+from widgetwrapper.slider import SliderWrapper
+from distribution.normal import normal_dist
+import plot
+
+
+INIT_MU = 0.5
+INIT_SIGMA = 0.01
 
 
 def main():
-    def update_plot(_):
-        """matplotlib.widgets.*.on_changed に渡すコールバック関数。
-
-        :param _:  matplotlib.widgets.*.on_changed のコールバックがセットする値だが、使わない。
-        :return: None
-        """
-        mu = slider_mu.get_widget().val
-        sigma = slider_sigma.get_widget().val
-
-        y_list = normal_dist(x_list, mu, sigma)
-        line2d.set_ydata(y_list)
-
-    INIT_MU = 0.5
-    INIT_SIGMA = 0.01
-
-    slider_mu = SliderWrapper(label='mu', min_val=0.0, max_val=1.0, init_val=INIT_MU)
-    slider_sigma = SliderWrapper(label='sigma', min_val=0.01, max_val=0.10, init_val=INIT_SIGMA)
-
-    ax_graph, (ax_slider_mu, ax_slider_sigma) = prmlpy.plot.init_figure([slider_mu, slider_sigma])
-
-    slider_mu.instantiate(axis=ax_slider_mu, on_changed=update_plot)
-    slider_sigma.instantiate(axis=ax_slider_sigma, on_changed=update_plot)
+    ax_graph, ax_slider_list = plot.init_figure(n_sliders=2)
+    slider_mu = SliderWrapper(
+        param_name='mu', axis=ax_slider_list[0], label='mu', min_val=0.0, max_val=1.0, init_val=INIT_MU)
+    slider_sigma = SliderWrapper(
+        param_name='sigma', axis=ax_slider_list[1], label='sigma', min_val=0.01, max_val=0.10, init_val=INIT_SIGMA)
 
     x_list = np.arange(0.0, 1.0, 0.001)
-    y_list = normal_dist(x_list, INIT_MU, INIT_SIGMA)
-
-    line2d, = ax_graph.plot(x_list, y_list)
+    plot.Plotter.register(ax_graph, dist_f=normal_dist, param_widget_wrappers=[slider_mu, slider_sigma], x_list=x_list)
 
     plt.show()
 
