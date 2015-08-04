@@ -26,16 +26,27 @@ import numpy as np
 from scipy.special import gamma
 
 # original modules
+from widgetwrapper.slider import SliderWrapper
 import plot
 
 
 REAL_MU = 0.20
 MAX_D = 150    # ガンマ関数は「一般化した階乗」と呼ばれるだけあって、イテレーションを増やすとすぐに gamma(m + a + l + b) がオーバーフローを起こす
+INIT_A = 5.0
+INIT_B = 5.0
+
+
+def posterior_dist(mu_list, params):
+    m, l, a, b = params['m'], params['l'], params['a'], params['b']
+    return (gamma(m + a + l + b) / (gamma(m + a) * gamma(l + b))) * (mu_list ** (m + a - 1)) * ((1 - mu_list) ** (l + b - 1)) # (2.18)
 
 
 if __name__ == '__main__':
-    #ax_graph, _ = plot.init_figure(n_sliders=0)
-    fig = plt.figure()
+    ax_graph, ax_slider_list = plot.init_figure(n_sliders=0)
+    #slider_a = SliderWrapper(
+    #    param_name='a', axis=ax_slider_list[0], label='a', min_val=0.00, max_val=10.0, init_val=INIT_A)
+    #slider_b = SliderWrapper(
+    #    param_name='b', axis=ax_slider_list[1], label='b', min_val=0.00, max_val=10.0, init_val=INIT_B)
 
     # [TODO] - a, b をスライダーバーで調整してから、ボタンを押すとイテレーション開始
     a = 8
@@ -54,10 +65,10 @@ if __name__ == '__main__':
         else:
             l += 1
 
-        frame_list.append(plt.plot(mu_list, prior_dist))
+        frame_list.append(ax_graph.plot(mu_list, prior_dist))
 
-        posterior_dist = (gamma(m + a + l + b) / (gamma(m + a) * gamma(l + b))) * (mu_list ** (m + a - 1)) * ((1 - mu_list) ** (l + b - 1)) # (2.18)
-        prior_dist = posterior_dist
+        _posterior_dist = posterior_dist(mu_list, {'m': m, 'l': l, 'a': a, 'b': b})
+        prior_dist = _posterior_dist
 
-    animation.ArtistAnimation(fig, frame_list, interval= 10, repeat_delay=2000)
+    animation.ArtistAnimation(ax_graph.figure, frame_list, interval= 10, repeat=False)
     plt.show()
