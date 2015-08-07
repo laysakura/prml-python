@@ -88,7 +88,7 @@ class Plotter3d:
     _im = None
 
     @classmethod
-    def register(cls, ax_graph, dist_f, param_widget_wrappers, x, y):
+    def register(cls, ax_graph, dist_f, param_widget_wrappers, x, y, **imshow_kwargs):
         """グラフを描画するための情報を登録。
 
         :param ax_graph: グラフのaxis。
@@ -96,6 +96,7 @@ class Plotter3d:
         :param param_widget_wrappers: 分布関数に渡すパラメータに紐付いた、 ParamWidgetWrapper の子クラスのインスタンス。
         :param x:
         :param y:
+        :param **imshow_kwargs: imshow()に渡す引数。
         """
         cls._ax_graph = ax_graph
         cls._dist_f = dist_f
@@ -103,7 +104,7 @@ class Plotter3d:
         cls._x, cls._y = x, y
 
         z = cls._get_z_from_current_param_widgets()  # 初期分布
-        cls._im = cls._ax_graph.imshow(z)
+        cls._im = cls._ax_graph.imshow(z, **imshow_kwargs)
         import pylab
         pylab.colorbar(cls._im, ax=cls._ax_graph)
 
