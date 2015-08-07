@@ -39,7 +39,8 @@ def main():
     plot.Plotter3d.register(
         ax_graph, dist_f=normal_dist_3d,
         param_widget_wrappers=[slider_mu1, slider_mu2, slider_sigma1, slider_sigma2, slider_sigma12],
-        x=x, y=y)
+        x=x, y=y,
+        extent=[-1.0, 1.0, -1.0, 1.0])
     plt.show()
 
 if __name__ == '__main__':
