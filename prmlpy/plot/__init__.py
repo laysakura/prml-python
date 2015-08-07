@@ -75,3 +75,47 @@ class Plotter:
     @staticmethod
     def _update_graph(_):
         Plotter._line2d.set_ydata(Plotter._get_y_list_from_current_param_widgets())
+
+
+class Plotter3d:
+    """3Dグラフを描画するための情報を登録するクラス。
+    """
+    _ax_graph = None
+    _dist_f = None
+    _param_widget_wrappers = None
+    _x = None
+    _y = None
+    _im = None
+
+    @classmethod
+    def register(cls, ax_graph, dist_f, param_widget_wrappers, x, y):
+        """グラフを描画するための情報を登録。
+
+        :param ax_graph: グラフのaxis。
+        :param dist_f: 分布関数。
+        :param param_widget_wrappers: 分布関数に渡すパラメータに紐付いた、 ParamWidgetWrapper の子クラスのインスタンス。
+        :param x:
+        :param y:
+        """
+        cls._ax_graph = ax_graph
+        cls._dist_f = dist_f
+        cls._param_widget_wrappers = param_widget_wrappers
+        cls._x, cls._y = x, y
+
+        z = cls._get_z_from_current_param_widgets()  # 初期分布
+        cls._im = cls._ax_graph.imshow(z)
+        import pylab
+        pylab.colorbar(cls._im, ax=cls._ax_graph)
+
+        for w in param_widget_wrappers:
+            w.get_widget().on_changed(cls._update_graph)
+
+    @classmethod
+    def _get_z_from_current_param_widgets(cls):
+        dist_f_params = {w.get_param_name(): w.get_widget().val for w in cls._param_widget_wrappers}
+        return Plotter3d._dist_f(Plotter3d._x, Plotter3d._y, dist_f_params)
+
+    @staticmethod
+    def _update_graph(_):
+        z = Plotter3d._get_z_from_current_param_widgets()
+        Plotter3d._im.set_data(z)
