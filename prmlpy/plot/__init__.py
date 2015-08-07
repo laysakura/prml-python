@@ -104,6 +104,8 @@ class Plotter3d:
 
         z = cls._get_z_from_current_param_widgets()  # 初期分布
         cls._im = cls._ax_graph.imshow(z)
+        import pylab
+        pylab.colorbar(cls._im, ax=cls._ax_graph)
 
         for w in param_widget_wrappers:
             w.get_widget().on_changed(cls._update_graph)
