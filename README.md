@@ -1,7 +1,7 @@
 # prml-python
 
-![ガンマ分布のパラメータをリアルタイムで変更](/doc/screenshot/ch1_p24_normal_dist.gif?raw=true)
-_ガンマ分布のパラメータをリアルタイムで変更_
+![ガウス分布のパラメータをリアルタイムで変更](/doc/screenshot/ch1_p24_normal_dist.gif?raw=true)
+_ガウス分布のパラメータをリアルタイムで変更_
 
 ![二項分布の逐次学習](/doc/screenshot/ch2_p70_sequential_learning.gif?raw=true)
 _二項分布の逐次学習_
