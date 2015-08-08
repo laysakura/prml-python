@@ -30,7 +30,7 @@ def main():
     slider_sigma2 = SliderWrapper(
         param_name='sigma2', axis=ax_slider_list[3], label='sigma2', min_val=0.1, max_val=2.0, init_val=1.0)
     slider_sigma12 = SliderWrapper(
-        param_name='sigma12', axis=ax_slider_list[4], label='sigma12', min_val=-0.1, max_val=2.0, init_val=0.8)
+        param_name='sigma12', axis=ax_slider_list[4], label='sigma12', min_val=-2.0, max_val=2.0, init_val=-0.8)
 
     _x = np.arange(-1.0, 1.0, 0.01)
     _y = np.arange(-1.0, 1.0, 0.01)
