@@ -68,6 +68,8 @@ def main():
     animation.ArtistAnimation(ax_graph_list[0].figure, frame_list, interval=10, repeat=False)
 
     ax_graph_list[0].set_xlabel('$\mu$')
+    ax_graph_list[0].text(0, 1.0, 'Learning $\mu$ = %.2f , with %d iterations' % (REAL_MU, MAX_D))
+
     plt.show()
 
 
