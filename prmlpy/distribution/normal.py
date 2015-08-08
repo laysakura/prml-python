@@ -118,3 +118,23 @@ def normal_dist_cond(x1, params):
     mu_1_cond_2 = mu1 - lambda_11_inv * lambda12 * (x2 - mu2)
 
     return normal_dist(x1, {'mu': mu_1_cond_2, 'sigma': lambda_11_inv})
+
+
+def normal_dist_simul(x1, params):
+    """(2.98) の式に従い、一次元の正規分布に帰着させて出力点を返却。
+
+    x_aはx1に、x_bはx2に対応している。
+
+    (2.98) をここに記載すると、
+    p(x1) = N(x1|μ1, Σ11)
+
+    ここで、 Σ11 = σ1^2 である。
+
+    :param x1: 入力点の集合。
+        :param params['mu1']: 正規分布の平均値。x1方向。
+    :param params['sigma1']: x1方向についての分散。
+    :return: 出力点の集合。
+    """
+    mu1 = params['mu1']
+    sigma1 = params['sigma1']
+    return normal_dist(x1, {'mu': mu1, 'sigma': sigma1**2})

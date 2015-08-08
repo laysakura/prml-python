@@ -56,7 +56,7 @@ class Plotter:
         self._param_widget_wrappers = param_widget_wrappers
         self._graphs_update_info = []  # 描画先axis, 分布関数, 入力点, 更新すべきデータ集合 から成るdictのlist
 
-    def register(self, ax_graph, dist_f, x, y=None, xlabel='', ylabel='', **imshow_kwargs):
+    def register(self, ax_graph, dist_f, x, y=None, label=None, xlabel='', ylabel='', **imshow_kwargs):
         """グラフを1つ描画するための情報を登録。
 
         :param ax_graph: グラフのaxis。
@@ -68,19 +68,25 @@ class Plotter:
         def _update_graphs(_):
             """グラフ群の描画を更新する。
             """
-            # グラフ描画
+            # グラフ周り
             for g in self._graphs_update_info:
                 _ax_graph, _dist_f, _x, _y, plot_data = g['ax_graph'], g['dist_f'], g['x'], g['y'], g['plot_data']
-                outs = self._get_outputs_from_current_param_widgets(_dist_f, _x, _y)
 
-                if plot_data is None and _y is None:  # 2次元グラフの初期プロット
-                    g['plot_data'], = _ax_graph.plot(_x, outs)
-                elif plot_data is None and _y is not None:  # 3次元グラフの初期プロット
-                    g['plot_data'] = _ax_graph.imshow(outs, **imshow_kwargs)
+                # グラフ描画
+                outs = self._get_outputs_from_current_param_widgets(_dist_f, _x, _y)
+                if plot_data is None:  # 初期プロット
+                    if _y is None:  # 2次元グラフの初期プロット
+                        g['plot_data'], = _ax_graph.plot(_x, outs, label=label)
+                    else:           # 3次元グラフの初期プロット
+                        g['plot_data'] = _ax_graph.imshow(outs, label=label, **imshow_kwargs)
+                    # 凡例
+                    if label:
+                        _ax_graph.legend()
                 elif plot_data is not None and _y is None:  # 2次元グラフの更新
                     plot_data.set_ydata(outs)
                 else:  # 3次元グラフの更新
                     plot_data.set_data(outs)
+
 
             # ウィジェット周りの再描画
             for w in self._param_widget_wrappers:

@@ -13,7 +13,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 
 # original modules
-from distribution.normal import normal_dist_3d, normal_dist_cond
+from distribution.normal import normal_dist_3d, normal_dist_cond, normal_dist_simul
 from widgetwrapper.slider import SliderWrapper
 import plot
 
@@ -46,8 +46,10 @@ def main():
     plotter.register(
         ax_graph_contour, dist_f=normal_dist_3d, x=x, y=y, xlabel='$x_1$', ylabel='$x_2$', extent=[-1.0, 1.0, -1.0, 1.0])
     # 条件付きガウス分布と、周辺ガウス分布
-    plotter.register(ax_graph_cond_simul, dist_f=normal_dist_cond, x=_x, xlabel='$x_1$')
+    plotter.register(ax_graph_cond_simul, dist_f=normal_dist_cond, x=_x, label='$p(x_1|x_2)$', xlabel='$x_1$')
+    plotter.register(ax_graph_cond_simul, dist_f=normal_dist_simul, x=_x, label='$p(x_1)$', xlabel='$x_1$')
 
+    ax_graph_cond_simul.legend()
     plt.show()
 
 if __name__ == '__main__':
