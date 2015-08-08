@@ -44,9 +44,11 @@ def main():
 
     # 等高線グラフ
     plotter.register(
-        ax_graph_contour, dist_f=normal_dist_3d, x=x, y=y, extent=[-1.0, 1.0, -1.0, 1.0])
+        ax_graph_contour, dist_f=normal_dist_3d, x=x, y=y, xlabel='x1', ylabel='x2', extent=[-1.0, 1.0, -1.0, 1.0])
     # 条件付きガウス分布と、周辺ガウス分布
-    plotter.register(ax_graph_cond_simul, dist_f=normal_dist_cond, x=_x)
+    plotter.register(ax_graph_cond_simul, dist_f=normal_dist_cond, x=_x, xlabel='x1')
+
+    # TODO 上下のグラフサイズを合わせる。スライダーバー、せめて最小値と最大値見たい
 
     plt.show()
 

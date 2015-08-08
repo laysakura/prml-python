@@ -56,7 +56,7 @@ class Plotter:
         self._param_widget_wrappers = param_widget_wrappers
         self._graphs_update_info = []  # 描画先axis, 分布関数, 入力点, 更新すべきデータ集合 から成るdictのlist
 
-    def register(self, ax_graph, dist_f, x, y=None, **imshow_kwargs):
+    def register(self, ax_graph, dist_f, x, y=None, xlabel='', ylabel='', **imshow_kwargs):
         """グラフを1つ描画するための情報を登録。
 
         :param ax_graph: グラフのaxis。
@@ -81,8 +81,13 @@ class Plotter:
                 else:  # 3次元グラフの更新
                     plot_data.set_data(outs)
 
+        # グラフの初期値を描画
         self._graphs_update_info.append({'ax_graph': ax_graph, 'dist_f': dist_f, 'x': x, 'y': y, 'plot_data': None})
         _update_graphs(None)
+
+        # グラフの諸々整える
+        ax_graph.set_xlabel(xlabel)
+        ax_graph.set_ylabel(ylabel)
 
         # 3次元グラフの時はカラーバーを表示
         if y is not None:
