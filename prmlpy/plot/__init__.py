@@ -68,6 +68,7 @@ class Plotter:
         def _update_graphs(_):
             """グラフ群の描画を更新する。
             """
+            # グラフ描画
             for g in self._graphs_update_info:
                 _ax_graph, _dist_f, _x, _y, plot_data = g['ax_graph'], g['dist_f'], g['x'], g['y'], g['plot_data']
                 outs = self._get_outputs_from_current_param_widgets(_dist_f, _x, _y)
@@ -80,6 +81,10 @@ class Plotter:
                     plot_data.set_ydata(outs)
                 else:  # 3次元グラフの更新
                     plot_data.set_data(outs)
+
+            # ウィジェット周りの再描画
+            for w in self._param_widget_wrappers:
+                w.update_text('%.4f' % (w.get_widget().val))
 
         # グラフの初期値を描画
         self._graphs_update_info.append({'ax_graph': ax_graph, 'dist_f': dist_f, 'x': x, 'y': y, 'plot_data': None})
@@ -105,7 +110,7 @@ class Plotter:
         :param y:
         :return: 出力値。
         """
-        dist_f_params = {w.get_param_name(): w.get_widget().val for w in self._param_widget_wrappers}
+        dist_f_params = {w.param_name: w.get_widget().val for w in self._param_widget_wrappers}
         if y is None:
             return dist_f(x, dist_f_params)
         else:

@@ -48,8 +48,6 @@ def main():
     # 条件付きガウス分布と、周辺ガウス分布
     plotter.register(ax_graph_cond_simul, dist_f=normal_dist_cond, x=_x, xlabel='$x_1$')
 
-    # TODO 上下のグラフサイズを合わせる。スライダーバー、せめて最小値と最大値見たい
-
     plt.show()
 
 if __name__ == '__main__':
