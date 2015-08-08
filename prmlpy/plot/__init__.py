@@ -69,25 +69,25 @@ class Plotter:
             """グラフ群の描画を更新する。
             """
             for g in self._graphs_update_info:
-                ax_graph, dist_f, x, y, plot_data = g['ax_graph'], g['dist_f'], g['x'], g['y'], g['plot_data']
-                outs = self._get_outputs_from_current_param_widgets(dist_f, x, y)
+                _ax_graph, _dist_f, _x, _y, plot_data = g['ax_graph'], g['dist_f'], g['x'], g['y'], g['plot_data']
+                outs = self._get_outputs_from_current_param_widgets(_dist_f, _x, _y)
 
-                if plot_data is None and y is None:  # 2次元グラフの初期プロット
-                    g['plot_data'], = ax_graph.plot(x, outs)
-                elif plot_data is None and y is not None:  # 3次元グラフの初期プロット
-                    g['plot_data'] = ax_graph.imshow(outs, **imshow_kwargs)
-                elif plot_data is not None and y is None:  # 2次元グラフの更新
+                if plot_data is None and _y is None:  # 2次元グラフの初期プロット
+                    g['plot_data'], = _ax_graph.plot(_x, outs)
+                elif plot_data is None and _y is not None:  # 3次元グラフの初期プロット
+                    g['plot_data'] = _ax_graph.imshow(outs, **imshow_kwargs)
+                elif plot_data is not None and _y is None:  # 2次元グラフの更新
                     plot_data.set_ydata(outs)
                 else:  # 3次元グラフの更新
                     plot_data.set_data(outs)
 
-
         self._graphs_update_info.append({'ax_graph': ax_graph, 'dist_f': dist_f, 'x': x, 'y': y, 'plot_data': None})
-
         _update_graphs(None)
 
-        # TODO 3次元グラフ限定にする
-        #pylab.colorbar(self._im, ax=self._ax_graph)
+        # 3次元グラフの時はカラーバーを表示
+        if y is not None:
+            g = self._graphs_update_info[-1]
+            pylab.colorbar(g['plot_data'], ax=g['ax_graph'])
 
         for w in self._param_widget_wrappers:
             w.get_widget().on_changed(_update_graphs)
