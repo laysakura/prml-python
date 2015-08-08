@@ -27,14 +27,14 @@ INIT_SIGMA = 0.01
 def main():
     ax_graph_list, ax_slider_list = plot.init_figure(n_graphs=1, n_sliders=2)
     slider_mu = SliderWrapper(
-        param_name='mu', axis=ax_slider_list[0], label='mu', min_val=0.0, max_val=1.0, init_val=INIT_MU)
+        param_name='mu', axis=ax_slider_list[0], label='$\mu$', min_val=0.0, max_val=1.0, init_val=INIT_MU)
     slider_sigma = SliderWrapper(
-        param_name='sigma', axis=ax_slider_list[1], label='sigma', min_val=0.01, max_val=0.10, init_val=INIT_SIGMA)
+        param_name='sigma', axis=ax_slider_list[1], label='$\sigma$', min_val=0.01, max_val=0.10, init_val=INIT_SIGMA)
 
     x_list = np.arange(0.0, 1.0, 0.001)
     plotter = plot.Plotter(param_widget_wrappers=[slider_mu, slider_sigma])
     plotter.register(
-        ax_graph_list[0], dist_f=normal_dist, x=x_list)
+        ax_graph_list[0], dist_f=normal_dist, x=x_list, xlabel='$x$')
 
     plt.show()
 

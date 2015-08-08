@@ -66,6 +66,8 @@ def main():
         prior_dist = _posterior_dist
 
     animation.ArtistAnimation(ax_graph_list[0].figure, frame_list, interval=10, repeat=False)
+
+    ax_graph_list[0].set_xlabel('$\mu$')
     plt.show()
 
 
