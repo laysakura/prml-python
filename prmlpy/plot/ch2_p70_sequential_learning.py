@@ -44,7 +44,7 @@ def posterior_dist(mu_list, params):
 
 
 def main():
-    ax_graph, _ = plot.init_figure(n_sliders=0)
+    ax_graph_list, _ = plot.init_figure(n_graphs=1, n_sliders=0)
     a, b = A, B
     m = l = 0
 
@@ -60,12 +60,12 @@ def main():
         else:
             l += 1
 
-        frame_list.append(ax_graph.plot(mu_list, prior_dist))
+        frame_list.append(ax_graph_list[0].plot(mu_list, prior_dist))
 
         _posterior_dist = posterior_dist(mu_list, {'m': m, 'l': l, 'a': a, 'b': b})
         prior_dist = _posterior_dist
 
-    animation.ArtistAnimation(ax_graph.figure, frame_list, interval=10, repeat=False)
+    animation.ArtistAnimation(ax_graph_list[0].figure, frame_list, interval=10, repeat=False)
     plt.show()
 
 

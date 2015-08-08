@@ -19,7 +19,7 @@ import plot
 
 
 def main():
-    ax_graph, ax_slider_list = plot.init_figure(n_sliders=5)
+    ax_graph_list, ax_slider_list = plot.init_figure(n_graphs=1, n_sliders=5)
 
     slider_mu1 = SliderWrapper(
         param_name='mu1', axis=ax_slider_list[0], label='mu1', min_val=-1.0, max_val=1.0, init_val=0.0)
@@ -37,7 +37,7 @@ def main():
     x, y = np.meshgrid(_x, _y)
 
     plot.Plotter3d.register(
-        ax_graph, dist_f=normal_dist_3d,
+        ax_graph_list[0], dist_f=normal_dist_3d,
         param_widget_wrappers=[slider_mu1, slider_mu2, slider_sigma1, slider_sigma2, slider_sigma12],
         x=x, y=y,
         extent=[-1.0, 1.0, -1.0, 1.0])
