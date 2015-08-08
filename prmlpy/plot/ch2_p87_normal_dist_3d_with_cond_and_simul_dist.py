@@ -39,18 +39,14 @@ def main():
     _y = np.arange(-1.0, 1.0, 0.01)
     x, y = np.meshgrid(_x, _y)
 
-    plotter = plot.Plotter3d(  # TODO : 3dと2dの区別をなくす
+    plotter = plot.Plotter(
         param_widget_wrappers=[slider_x2, slider_mu1, slider_mu2, slider_sigma1, slider_sigma2, slider_sigma12])
 
     # 等高線グラフ
     plotter.register(
         ax_graph_contour, dist_f=normal_dist_3d, x=x, y=y, extent=[-1.0, 1.0, -1.0, 1.0])
-
     # 条件付きガウス分布と、周辺ガウス分布
-    #plotter.register(
-    #    ax_graph_cond_simul, dist_f=normal_dist_3d, x=x, y=-y, extent=[-1.0, 1.0, -1.0, 1.0])
-    plotter.register(
-        ax_graph_cond_simul, dist_f=normal_dist_cond, x=_x, y=None)
+    plotter.register(ax_graph_cond_simul, dist_f=normal_dist_cond, x=_x)
 
     plt.show()
 

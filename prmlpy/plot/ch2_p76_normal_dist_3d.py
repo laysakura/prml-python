@@ -36,11 +36,9 @@ def main():
     _y = np.arange(-1.0, 1.0, 0.01)
     x, y = np.meshgrid(_x, _y)
 
-    plot.Plotter3d.register(
-        ax_graph_list[0], dist_f=normal_dist_3d,
-        param_widget_wrappers=[slider_mu1, slider_mu2, slider_sigma1, slider_sigma2, slider_sigma12],
-        x=x, y=y,
-        extent=[-1.0, 1.0, -1.0, 1.0])
+    plotter = plot.Plotter(param_widget_wrappers=[slider_mu1, slider_mu2, slider_sigma1, slider_sigma2, slider_sigma12])
+    plotter.register(
+        ax_graph_list[0], dist_f=normal_dist_3d, x=x, y=y, extent=[-1.0, 1.0, -1.0, 1.0])
     plt.show()
 
 if __name__ == '__main__':

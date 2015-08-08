@@ -32,8 +32,9 @@ def main():
         param_name='sigma', axis=ax_slider_list[1], label='sigma', min_val=0.01, max_val=0.10, init_val=INIT_SIGMA)
 
     x_list = np.arange(0.0, 1.0, 0.001)
-    plot.Plotter.register(
-        ax_graph_list[0], dist_f=normal_dist, param_widget_wrappers=[slider_mu, slider_sigma], x_list=x_list)
+    plotter = plot.Plotter(param_widget_wrappers=[slider_mu, slider_sigma])
+    plotter.register(
+        ax_graph_list[0], dist_f=normal_dist, x=x_list)
 
     plt.show()
 

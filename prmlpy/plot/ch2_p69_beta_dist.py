@@ -32,8 +32,8 @@ def main():
         param_name='b', axis=ax_slider_list[1], label='b', min_val=0.00, max_val=10.0, init_val=INIT_B)
 
     mu_list = np.arange(0.0 + 0.001, 1.0 - 0.001, 0.001)
-    plot.Plotter.register(
-        ax_graph_list[0], dist_f=beta_dist, param_widget_wrappers=[slider_a, slider_b], x_list=mu_list)
+    plotter = plot.Plotter(param_widget_wrappers=[slider_a, slider_b])
+    plotter.register(ax_graph_list[0], dist_f=beta_dist, x=mu_list)
 
     plt.show()
 
