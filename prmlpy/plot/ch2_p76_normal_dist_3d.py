@@ -30,15 +30,16 @@ def main():
     slider_sigma2 = SliderWrapper(
         param_name='sigma2', axis=ax_slider_list[3], label='$\sigma_2$', min_val=0.1, max_val=2.0, init_val=1.0)
     slider_sigma12 = SliderWrapper(
-        param_name='sigma12', axis=ax_slider_list[4], label='$\sigma_{12}$', min_val=-2.0, max_val=2.0, init_val=-0.8)
+        param_name='sigma12', axis=ax_slider_list[4], label='$\sigma_{12}$', min_val=-2.0, max_val=2.0, init_val=0.8)
 
     _x1 = np.arange(-1.0, 1.0, 0.01)
     _x2 = np.arange(-1.0, 1.0, 0.01)
-    x1, x2 = np.meshgrid(_x1, _x2)
+    x1, x2 = np.meshgrid(_x1, -_x2)  # meshgridの形的に、x2を符号逆転すると図示がうまくいく。x1 + x2を図示するとよくわかる。
 
     plotter = plot.Plotter(param_widget_wrappers=[slider_mu1, slider_mu2, slider_sigma1, slider_sigma2, slider_sigma12])
     plotter.register(
-        ax_graph_list[0], dist_f=normal_dist_3d, x=x1, y=x2, xlabel='$x_1$', ylabel='$x_2$', extent=[-1.0, 1.0, -1.0, 1.0])
+        ax_graph_list[0], dist_f=normal_dist_3d, x=x1, y=x2,
+        xlabel='$x_1$', ylabel='$x_2$', extent=[-1.0, 1.0, -1.0, 1.0])
     plt.show()
 
 if __name__ == '__main__':

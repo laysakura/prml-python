@@ -52,7 +52,7 @@ def normal_dist_3d(x1, x2, params):
 
     x = (x1, x2)^T , μ = (μ1, μ2)^T
     とすると、マハラノビス距離は
-    (x - μ)^T Σ^(-1) (x - μ) = (1/|Σ|) (σ2^2 x1^2 - 2 σ12^2 x1 x2 + σ1^2 x2^2)
+    (x - μ)^T Σ^(-1) (x - μ) = (1/|Σ|) (σ2^2 (x1 - μ1)^2 - 2 σ12 (x1 - μ1)(x2 - μ2) + σ1^2 (x2 - μ2)^2)
     という風に、成分で書き下せる。
 
     :param x1: 入力点の集合。numpy.meshgrid() の返り値。
@@ -69,7 +69,8 @@ def normal_dist_3d(x1, x2, params):
 
     det_sigma = sigma1**2 * sigma2**2 - sigma12**2
     mahalanobis_distance = (
-        (1.0 / det_sigma) * (sigma2**2 * (x1 - mu1)**2 - 2 * sigma12 * (x1 - mu1) * (x2 - mu2) + sigma1**2 * (x2 - mu2)**2))
+        (1.0 / det_sigma)
+        * (sigma2**2 * (x1 - mu1)**2 - 2 * sigma12 * (x1 - mu1) * (x2 - mu2) + sigma1**2 * (x2 - mu2)**2))
 
     return (
         (1.0 / (2 * np.pi)) * (1.0 / np.sqrt(det_sigma))
