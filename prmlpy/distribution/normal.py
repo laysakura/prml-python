@@ -69,7 +69,7 @@ def normal_dist_3d(x1, x2, params):
 
     det_sigma = sigma1**2 * sigma2**2 - sigma12**2
     mahalanobis_distance = (
-        (1.0 / det_sigma) * (sigma2**2 * (x1 - mu1)**2 - 2 * sigma12**2 * (x1 - mu1) * (x2 - mu2) + sigma1**2 * (x2 - mu2)**2))
+        (1.0 / det_sigma) * (sigma2**2 * (x1 - mu1)**2 - 2 * sigma12 * (x1 - mu1) * (x2 - mu2) + sigma1**2 * (x2 - mu2)**2))
 
     return (
         (1.0 / (2 * np.pi)) * (1.0 / np.sqrt(det_sigma))
